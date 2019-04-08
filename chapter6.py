@@ -46,6 +46,28 @@ def normal_pdf(x, mu=0, sigma=1):
 def normal_cdf(x, mu=0, sigma=1):
     return (1 + math.erf((x - mu) / math.sqrt(2) / sigma)) / 2
 
+def inverse_normal_cdf(p, mu=0, sigma=1, tolerance=0.00001):
+    # TODO is there a mathematical formula that can do this instead of binary search?
+    if mu != 0 or sigma != 1:
+        return mu + sigma * inverse_normal_cdf(p, tolerance=tolerance)
+    
+    lo_z = -10.0
+    hi_z = 10.0
+    while hi_z - lo_z > tolerance:
+        mid_z = (lo_z + hi_z) / 2
+        mid_p = normal_cdf(mid_z)
+        if mid_p < p:
+            lo_z = mid_z
+        elif mid_p > p:
+            hi_z = mid_z
+        else:
+            break
+    # Don't need to handle no solution case bc there will always be one
+    return mid_z
+        
+
+    
+
 def bernoulli_trial(p):
     return 1 if random.random() < p else 0
 
@@ -97,5 +119,5 @@ def main():
 
     make_hist(0.75, 100, 1000)
 
-main()
+#main()
  
