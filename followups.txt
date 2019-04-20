@@ -1,0 +1,6 @@
+different kinds of imports
+yield vs return
+what is conda exactly
+
+stochastic gradient descent
+principal component analysis

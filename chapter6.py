@@ -47,6 +47,7 @@ def normal_cdf(x, mu=0, sigma=1):
     return (1 + math.erf((x - mu) / math.sqrt(2) / sigma)) / 2
 
 def inverse_normal_cdf(p, mu=0, sigma=1, tolerance=0.00001):
+    # returns z-value for which P(x < X) is p
     # TODO is there a mathematical formula that can do this instead of binary search?
     if mu != 0 or sigma != 1:
         return mu + sigma * inverse_normal_cdf(p, tolerance=tolerance)
